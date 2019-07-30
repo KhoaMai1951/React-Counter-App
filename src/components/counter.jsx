@@ -4,7 +4,8 @@ import { throwStatement } from "@babel/types";
 class Counter extends Component {
   //Store any data that a component needs
   state = {
-    count: 0,
+    //Set "count" property equal to "value" property in counters.jsx
+    value: this.props.value,
     imgeUrl: "https://picsum.photos/200"
   };
 
@@ -18,20 +19,33 @@ class Counter extends Component {
     //check clicked on console
     console.log("Increment clicked", this);
     //Increase the count in state by one
-    this.setState({ count: this.state.count + 1 });
+    this.setState({ value: this.state.value + 1 });
   };
 
   render() {
+    //output in console screen the properties values
+    console.log("props", this.props);
     return (
       <div>
+        {/* Area for children properties */}
+        {this.props.children}
+        {/* Number */}
         <span style={this.styles} className={this.getBadgeClasses()}>
           {this.formatCount()}
         </span>
+        {/* Button Add */}
         <button
           onClick={this.handleIncrement}
           className="btn btn-secondary btn-sm"
         >
           Increment
+        </button>
+        {/* Button Delete */}
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
         </button>
       </div>
     );
@@ -40,14 +54,14 @@ class Counter extends Component {
   //method to get class = badge
   getBadgeClasses() {
     let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
+    classes += this.state.value === 0 ? "warning" : "primary";
     return classes;
   }
 
-  //method
+  //method to count
   formatCount() {
-    const { count } = this.state;
-    return count === 0 ? "Zero" : count;
+    const { value } = this.state;
+    return value === 0 ? "Zero" : value;
   }
 }
 
